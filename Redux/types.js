@@ -1,0 +1,6 @@
+export const INCREMENT = 'INCREMENT'
+export const DECREMENT = 'DECREMENT'
+export const ASYNC_INCREMENT = 'ASYNCINCREMENT'
+export const CHANGE_THEME = 'CHANGETHEME'
+export const ENABLED = 'ENABLED'
+export const DISABLED = 'DISABLED'
