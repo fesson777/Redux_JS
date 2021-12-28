@@ -4,8 +4,10 @@ import {
   DECREMENT,
   DISABLED,
   ENABLED,
+  FETCH,
   INCREMENT,
 } from './types'
+const URL = (details) => `https://jsonplaceholder.typicode.com/${details}/`
 
 export function increment() {
   return {
@@ -46,5 +48,18 @@ export function disabled() {
   return {
     type: DISABLED,
     disabled: false,
+  }
+}
+
+export function fetchData(select) {
+  return function (dispatch) {
+    fetch(URL(select))
+      .then((res) => res.json())
+      .then((data) =>
+        dispatch({
+          type: FETCH,
+          payload: data,
+        })
+      )
   }
 }

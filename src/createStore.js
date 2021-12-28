@@ -1,3 +1,4 @@
+// my createStore
 export function createStore(rootReducer, initialState) {
   let state = rootReducer(initialState, { type: 'INIT' })
   let listeners = []

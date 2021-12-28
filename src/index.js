@@ -7,36 +7,38 @@ import {
   asyncIncrement,
   changeTheme,
   decrement,
+  fetchData,
   increment,
 } from '../Redux/actionsCreators'
 import './styles.css'
 
 const counter = document.querySelector('#counter')
-const sub = document.querySelector('#sub')
-const add = document.querySelector('#add')
-const async = document.querySelector('#async')
-const theme = document.querySelector('#theme')
-
+const appendData = document.querySelector('#list')
+const select = document.querySelector('#select')
 const store = createStore(
   rootReducer,
   composeEnhancers(applyMiddleware(thunk, logger))
 )
 
-add.addEventListener('click', () => {
-  store.dispatch(increment())
-})
-
-sub.addEventListener('click', () => {
-  store.dispatch(decrement())
-})
-
-async.addEventListener('click', () => {
-  store.dispatch(asyncIncrement())
-})
-
-theme.addEventListener('click', () => {
-  const newTheme = document.body.classList.contains('light') ? 'dark' : 'light'
-  store.dispatch(changeTheme(newTheme))
+document.addEventListener('click', (event) => {
+  const $target = event.target.id
+  switch ($target) {
+    case 'add':
+      return store.dispatch(increment())
+    case 'sub':
+      return store.dispatch(decrement())
+    case 'async':
+      return store.dispatch(asyncIncrement())
+    case 'theme':
+      const newTheme = document.body.classList.contains('light')
+        ? 'dark'
+        : 'light'
+      return store.dispatch(changeTheme(newTheme))
+    case 'fetch':
+      appendData.innerHTML = ''
+      let choose = select.value === 'users' ? 'users' : 'posts'
+      return store.dispatch(fetchData(choose))
+  }
 })
 
 store.subscribe(() => {
@@ -47,6 +49,18 @@ store.subscribe(() => {
   ;[sub, add, async, theme].forEach(
     (btn) => (btn.disabled = state.theme.disabled)
   )
+  appendData.insertAdjacentHTML('afterbegin', render(state.fetch.data))
 })
 
 store.dispatch({ type: 'INIT' })
+
+function render(data = []) {
+  const list = (item) => {
+    return `
+   <li class="list-group-item">"${item.name || item.id}":  ${
+      item.email || item.title
+    }</li>
+  `
+  }
+  return data.map(list).join('')
+}

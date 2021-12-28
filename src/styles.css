@@ -1,5 +1,5 @@
 body {
-  transition: .2s all ease-in;
+  transition: 0.2s all ease-in;
 }
 
 body.dark {
@@ -8,16 +8,42 @@ body.dark {
 }
 
 body.dark hr {
-  border-top: 1px solid rgba(0,0,0,.9);
+  border-top: 1px solid rgba(0, 0, 0, 0.9);
 }
 
 body.dark .card {
   background: #343a40;
-  border: 1px solid rgba(0,0,0,.875);
+  border: 1px solid rgba(0, 0, 0, 0.875);
 }
 
 .heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+body.dark .list-group-item {
+  background: #343a40;
+  color: #fff;
+}
+
+body.dark .list-group-item:hover {
+  background: #59636d;
+  color: #fff;
+  outline: 1px solid rgba(226, 217, 217, 0.875);
+}
+
+.list-group-item {
+  font-size: 1.3em;
+  font-weight: 500;
+  padding: 5px 10px;
+}
+
+.list-group-item:hover {
+  background: #1c76d1;
+  color: #fff;
+  outline: 1px solid rgba(0, 0, 0, 0.875);
+}
+.form-select {
+  margin-bottom: 68px;
 }

@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
+
 import {
   ASYNC_INCREMENT,
   CHANGE_THEME,
   DECREMENT,
   DISABLED,
   ENABLED,
+  FETCH,
   INCREMENT,
 } from './types'
 
@@ -41,7 +43,17 @@ function themeReducer(state = initialState, action) {
   }
 }
 
+function fetchReducer(state = {}, action) {
+  switch (action.type) {
+    case FETCH:
+      return { ...state, data: action.payload }
+    default:
+      return state
+  }
+}
+
 export const rootReducer = combineReducers({
   counter: counterReducer,
   theme: themeReducer,
+  fetch: fetchReducer,
 })
